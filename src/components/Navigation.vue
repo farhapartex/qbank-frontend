@@ -1,7 +1,7 @@
 <template>
   <div class="navigation">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Question Bank</a>
+      <router-link class="navbar-brand" :to="{ name: 'home'}">Question Bank</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,13 +17,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
+            <router-link class="nav-link" :to="{ name: 'home'}">Home</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Add Question</a>
+            <router-link class="nav-link" :to="{ name: 'addQuestion'}">Add Question</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'auth'}">Login</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'auth'}">Logout</router-link>
           </li>
         </ul>
       </div>

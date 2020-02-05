@@ -15,6 +15,11 @@ const routes = [
         name: 'auth',
         component: () => import("./views/Auth.vue"),
     },
+    {
+        path: '/add-question',
+        name: 'addQuestion',
+        component: () => import("./views/PostQuestion.vue"),
+    },
 ]
 
 const router = new VueRouter({
