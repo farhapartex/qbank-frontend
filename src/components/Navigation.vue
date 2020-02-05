@@ -23,7 +23,7 @@
             <a class="nav-link" href="#">Add Question</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <router-link class="nav-link" :to="{ name: 'auth'}">Login</router-link>
           </li>
         </ul>
       </div>
