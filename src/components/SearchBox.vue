@@ -6,9 +6,7 @@
           <div class="form-group">
             <select class="form-control">
               <option value>-- Select Year --</option>
-              <option value>2000</option>
-              <option value>2001</option>
-              <option value>2002</option>
+              <option v-for="year in startYear" :key="year" :value="year">{{2000 +year}}</option>
             </select>
           </div>
         </div>
@@ -16,9 +14,11 @@
           <div class="form-group">
             <select class="form-control">
               <option value>-- Select Department --</option>
-              <option value>Mathematics</option>
-              <option value>Statistics</option>
-              <option value>Physics</option>
+              <option
+                v-for="(department,index) in departments"
+                :key="index"
+                :value="department.id"
+              >{{department.name}}</option>
             </select>
           </div>
         </div>
@@ -26,8 +26,8 @@
           <div class="form-group">
             <select class="form-control">
               <option value>-- Select Semester --</option>
-              <option value>First Semester</option>
-              <option value>Secnd Semester</option>
+              <option value="1">First Semester</option>
+              <option value="2">Secnd Semester</option>
             </select>
           </div>
         </div>
@@ -64,6 +64,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   components: {}
 })
 export default class SearchBox extends Vue {
-  // dummy
+  @Prop() readonly departments: any;
+
+  startYear: number = 20;
 }
 </script>
