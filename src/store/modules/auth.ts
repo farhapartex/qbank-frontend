@@ -1,6 +1,7 @@
 import { AuthState, RootState, User } from "../store.types";
 import { GetterTree, ActionTree, MutationTree, Module } from "vuex";
 import vue from "vue";
+import axios from "axios";
 import {
     ACCESS_TOKEN,
     USER_PROFILE,
