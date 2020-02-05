@@ -1,7 +1,7 @@
 <template>
   <div class="searchBox mt-3">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row mx-auto">
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
             <select class="form-control">
