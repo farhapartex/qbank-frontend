@@ -19,6 +19,11 @@ const routes = [
         }
     },
     {
+        path: '/logout',
+        name: 'logout',
+        component: () => import("./views/Logout.vue"),
+    },
+    {
         path: '/add-question',
         name: 'addQuestion',
         component: () => import("./views/PostQuestion.vue"),
