@@ -24,6 +24,11 @@ export interface AuthState {
     error: boolean;
 }
 
+export interface AuthCredential {
+    username: string;
+    password: string;
+}
+
 export interface PublicDataState {
     departments: any;
     error: boolean;

@@ -14,11 +14,18 @@ const routes = [
         path: '/auth',
         name: 'auth',
         component: () => import("./views/Auth.vue"),
+        meta: {
+            visitorRequired: true,
+        }
     },
     {
         path: '/add-question',
         name: 'addQuestion',
         component: () => import("./views/PostQuestion.vue"),
+        meta: {
+            authRequired: true,
+            access_level: 0
+        }
     },
 ]
 
