@@ -11,7 +11,7 @@
               <div class="form-group">
                 <select class="form-control">
                   <option value>-- Select Year --</option>
-                  <option value>2000</option>
+                  <option v-for="year in startYear" :key="year" :value="year">{{2000 +year}}</option>
                 </select>
               </div>
             </div>
@@ -19,7 +19,11 @@
               <div class="form-group">
                 <select class="form-control">
                   <option value>-- Select Department --</option>
-                  <option value>2000</option>
+                  <option
+                    v-for="(department,index) in departments"
+                    :key="index"
+                    :value="department.id"
+                  >{{department.name}}</option>
                 </select>
               </div>
             </div>
@@ -29,7 +33,8 @@
               <div class="form-group">
                 <select class="form-control">
                   <option value>-- Select Semester --</option>
-                  <option value>2000</option>
+                  <option value="1">First Semester</option>
+                  <option value="2">Secnd Semester</option>
                 </select>
               </div>
             </div>
@@ -37,7 +42,8 @@
               <div class="form-group">
                 <select class="form-control">
                   <option value>-- Select Course --</option>
-                  <option value>2000</option>
+                  <option value v-if="courses.length > 0">2000</option>
+                  <option value v-else>No Course Found</option>
                 </select>
               </div>
             </div>
@@ -70,6 +76,8 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Getter, Action } from "vuex-class";
+import { DEPARTMENTS } from "@/store/getters.names";
 import Navigation from "@/components/Navigation.vue";
 
 @Component({
@@ -77,6 +85,9 @@ import Navigation from "@/components/Navigation.vue";
   components: { Navigation }
 })
 export default class PostQuestion extends Vue {
-  // dummy
+  @Getter(DEPARTMENTS) departments: any;
+
+  startYear: number = 20;
+  courses: any = [];
 }
 </script>

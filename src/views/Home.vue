@@ -23,7 +23,7 @@ export default class Home extends Vue {
   @Getter(DEPARTMENTS) departments: any;
 
   mounted() {
-    console.log(this.departments);
+    // console.log(this.departments);
   }
 }
 </script>
