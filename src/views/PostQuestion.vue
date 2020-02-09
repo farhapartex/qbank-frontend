@@ -72,7 +72,7 @@
                   type="file"
                   class="form-control-file"
                   id="exampleFormControlFile1"
-                  ref="questionImage"
+                  ref="file"
                 />
               </div>
             </div>
@@ -117,6 +117,7 @@ export default class PostQuestion extends Vue {
   formError: boolean = false;
   errorMessage: string = "";
   loginError: boolean = false;
+  file: any = "";
 
   questionData: any = {
     year: null,
@@ -159,6 +160,10 @@ export default class PostQuestion extends Vue {
     return true;
   }
 
+  // handleFileUpload() {
+  //   this.file = this.$refs.file.files[0];
+  // }
+
   submitQuesiton() {
     if (this.validation(this.questionData)) {
       let formData = new FormData();
@@ -167,7 +172,8 @@ export default class PostQuestion extends Vue {
         formData.append(key, this.questionData[key]);
       });
 
-      let image = (this.$refs["questionImage"] as HTMLInputElement).files[0];
+      let image = (this.$refs["file"] as any).files[0];
+      // let image = this.$refs.files.files[0];
       if (typeof image != "undefined") {
         formData.append("image", image);
         this.formError = false;
