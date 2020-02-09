@@ -25,7 +25,12 @@
           <td>{{question.course.code}}</td>
           <td>{{question.course.name}}</td>
           <td>
-            <a href="#">
+            <a
+              href="#"
+              data-toggle="modal"
+              data-target="#questionImageData"
+              @click="setImageData(question.image)"
+            >
               <span>View</span>
               <span class="ml-2">
                 <i class="fas fa-eye"></i>
@@ -35,6 +40,37 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="questionImageData"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Question Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="w-100">
+              <!-- <img class="questionDataImage" src="../assets/images/ques.jpg" alt /> -->
+              <img class="questionDataImage" :src="imageFile" alt />
+            </div>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>-->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,6 +84,11 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 })
 export default class DataTable extends Vue {
   @Prop() readonly questions: any;
+  imageFile: any = "";
+
+  setImageData(image: any) {
+    this.imageFile = image;
+  }
 }
 </script>
 
@@ -56,5 +97,10 @@ export default class DataTable extends Vue {
 <style>
 .dataTable table tr {
   text-align: center;
+}
+
+.questionDataImage {
+  display: block;
+  width: 100%;
 }
 </style>
