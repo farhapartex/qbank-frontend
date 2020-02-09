@@ -8,9 +8,10 @@ import {
     DEPARTMENTS,
 } from "../getters.names";
 import { SET_DEPARTMENTS, SET_DEPARTMENTS_ERROR } from '../mutations.names';
-import { FETCH_DEPARTMENTS, FETCH_COURSES, } from '../actions.names';
-import { DEPARTMENT_ENDPOINT, COURSE_ENDPOINT } from '../endpoints.names';
+import { FETCH_DEPARTMENTS, FETCH_COURSES, CREATE_QUESTION, } from '../actions.names';
+import { DEPARTMENT_ENDPOINT, COURSE_ENDPOINT, QUESTION_ENDPOINT } from '../endpoints.names';
 import { buildQueryParams } from '@/utils/api';
+import { generateAuthHeader } from '@/utils/auth';
 
 const DEFAULT_DATA_STATE: PublicDataState = {
     departments: [],
@@ -51,6 +52,20 @@ const actions: ActionTree<PublicDataState, RootState> = {
                     resolve(data);
                 })
                 .catch(e => {
+                    reject(e);
+                });
+        });
+    },
+
+    async [CREATE_QUESTION]({ rootState, commit }, payload): Promise<any> {
+        return new Promise((resolve, reject) => {
+            console.log('Hasan ' + rootState.AuthModule.token);
+            axios
+                .post(QUESTION_ENDPOINT, payload, generateAuthHeader(rootState.AuthModule.token))
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch((e: any) => {
                     reject(e);
                 });
         });
