@@ -6,13 +6,13 @@
           <div class="form-group">
             <select class="form-control">
               <option value>-- Select Year --</option>
-              <option v-for="year in startYear" :key="year" :value="year">{{2000 +year}}</option>
+              <option v-for="year in startYear" :key="year" :value="year+2000">{{2000 +year}}</option>
             </select>
           </div>
         </div>
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
-            <select class="form-control">
+            <select class="form-control" @change="getCourse($event)">
               <option value>-- Select Department --</option>
               <option
                 v-for="(department,index) in departments"
@@ -35,19 +35,12 @@
           <div class="form-group">
             <select class="form-control">
               <option value>-- Select Course --</option>
-              <option value>Mat 120</option>
-              <option value>Mat 320</option>
+              <option
+                v-for="(course, index) in courses"
+                :key="index"
+                :value="course.id"
+              >{{course.name}}</option>
             </select>
-          </div>
-        </div>
-        <div class="col-md-2 col-lg-2 col-sm-2">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Type Course Name" />
-          </div>
-        </div>
-        <div class="col-md-3 col-lg-3 col-sm-3">
-          <div class="form-group">
-            <button class="btn btn-warning">Search Question</button>
           </div>
         </div>
       </div>
@@ -58,14 +51,35 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Getter, Action } from "vuex-class";
+import { FETCH_COURSES } from "../store/actions.names";
 
 @Component({
   name: "SearchBox",
   components: {}
 })
 export default class SearchBox extends Vue {
+  @Action(FETCH_COURSES) fetchCourses: any;
   @Prop() readonly departments: any;
 
   startYear: number = 20;
+  courses: any = [];
+
+  getCourse(event: any) {
+    let courseId: number = event.target.value;
+    if (courseId) {
+      this.fetchCourses({
+        id: courseId
+      })
+        .then((result: any) => {
+          this.courses = result;
+        })
+        .catch((e: any) => {
+          this.courses = [];
+        });
+    } else {
+      this.courses = [];
+    }
+  }
 }
 </script>
