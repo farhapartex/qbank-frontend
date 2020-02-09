@@ -8,8 +8,9 @@ import {
     DEPARTMENTS,
 } from "../getters.names";
 import { SET_DEPARTMENTS, SET_DEPARTMENTS_ERROR } from '../mutations.names';
-import { FETCH_DEPARTMENTS, } from '../actions.names';
-import { DEPARTMENT_ENDPOINT } from '../endpoints.names';
+import { FETCH_DEPARTMENTS, FETCH_COURSES, } from '../actions.names';
+import { DEPARTMENT_ENDPOINT, COURSE_ENDPOINT } from '../endpoints.names';
+import { buildQueryParams } from '@/utils/api';
 
 const DEFAULT_DATA_STATE: PublicDataState = {
     departments: [],
@@ -38,6 +39,21 @@ const actions: ActionTree<PublicDataState, RootState> = {
             .catch(e => {
                 commit(SET_DEPARTMENTS_ERROR);
             });
+    },
+
+    [FETCH_COURSES]({ commit, rootState }, payload) {
+
+        return new Promise((resolve, reject) => {
+            const url = `${COURSE_ENDPOINT}${buildQueryParams(payload)}`
+            axios
+                .get(url)
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch(e => {
+                    reject(e);
+                });
+        });
     },
 };
 

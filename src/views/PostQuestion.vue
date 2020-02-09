@@ -17,7 +17,7 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control">
+                <select class="form-control" @change="getCourse($event)">
                   <option value>-- Select Department --</option>
                   <option
                     v-for="(department,index) in departments"
@@ -40,10 +40,17 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control">
+                <select class="form-control" v-if="courses.length > 0">
                   <option value>-- Select Course --</option>
-                  <option value v-if="courses.length > 0">2000</option>
-                  <option value v-else>No Course Found</option>
+                  <option
+                    v-for="(course, index) in courses"
+                    :key="index"
+                    :value="course.id"
+                  >{{course.name}}</option>
+                </select>
+                <select class="form-control" v-else>
+                  <option value>-- Select Course --</option>
+                  <option>No Course Found</option>
                 </select>
               </div>
             </div>
@@ -79,15 +86,30 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
 import { DEPARTMENTS } from "@/store/getters.names";
 import Navigation from "@/components/Navigation.vue";
+import { FETCH_COURSES } from "../store/actions.names";
 
 @Component({
   name: "PostQuestion",
   components: { Navigation }
 })
 export default class PostQuestion extends Vue {
+  @Action(FETCH_COURSES) fetchCourses: any;
   @Getter(DEPARTMENTS) departments: any;
 
   startYear: number = 20;
   courses: any = [];
+
+  getCourse(event: any) {
+    let courseId: number = event.target.value;
+    this.fetchCourses({
+      id: courseId
+    })
+      .then((result: any) => {
+        this.courses = result;
+      })
+      .catch((e: any) => {
+        this.courses = [];
+      });
+  }
 }
 </script>
