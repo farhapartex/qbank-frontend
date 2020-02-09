@@ -71,7 +71,7 @@ export default class Login extends Vue {
             this.login(this.user)
               .then((result: any) => {
                 this.removeErrorMessege();
-                this.$router.push("/dashboard");
+                this.$router.push("/");
               })
               .catch((e: any) => {
                 this.setErrorMessege(

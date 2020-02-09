@@ -22,11 +22,11 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'addQuestion'}">Add Question</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'auth'}">Login</router-link>
+          <li class="nav-item" v-if="accessToken">
+            <router-link class="nav-link" :to="{ name: 'logout'}">Logout</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'auth'}">Logout</router-link>
+          <li class="nav-item" v-else>
+            <router-link class="nav-link" :to="{ name: 'auth'}">Login</router-link>
           </li>
         </ul>
       </div>
@@ -37,12 +37,14 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+import { ACCESS_TOKEN } from "../store/getters.names";
 
 @Component({
   name: "Navigation",
   components: {}
 })
 export default class Navigation extends Vue {
-  // dummy
+  @Getter(ACCESS_TOKEN) accessToken: any;
 }
 </script>
