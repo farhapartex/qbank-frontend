@@ -8,7 +8,7 @@ import {
     DEPARTMENTS,
 } from "../getters.names";
 import { SET_DEPARTMENTS, SET_DEPARTMENTS_ERROR } from '../mutations.names';
-import { FETCH_DEPARTMENTS, FETCH_COURSES, CREATE_QUESTION, } from '../actions.names';
+import { FETCH_DEPARTMENTS, FETCH_COURSES, CREATE_QUESTION, FETCH_QUESTIONS, } from '../actions.names';
 import { DEPARTMENT_ENDPOINT, COURSE_ENDPOINT, QUESTION_ENDPOINT } from '../endpoints.names';
 import { buildQueryParams } from '@/utils/api';
 import { generateAuthHeader } from '@/utils/auth';
@@ -59,13 +59,27 @@ const actions: ActionTree<PublicDataState, RootState> = {
 
     async [CREATE_QUESTION]({ rootState, commit }, payload): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log('Hasan ' + rootState.AuthModule.token);
             axios
                 .post(QUESTION_ENDPOINT, payload, generateAuthHeader(rootState.AuthModule.token))
                 .then(({ data }) => {
                     resolve(data);
                 })
                 .catch((e: any) => {
+                    reject(e);
+                });
+        });
+    },
+
+    async [FETCH_QUESTIONS]({ commit, rootState }, payload): Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            const url = `${QUESTION_ENDPOINT}${buildQueryParams(payload)}`
+            axios
+                .get(url, generateAuthHeader(rootState.AuthModule.token))
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch(e => {
                     reject(e);
                 });
         });

@@ -4,16 +4,22 @@
       <div class="row mx-auto">
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
-            <select class="form-control">
-              <option value>-- Select Year --</option>
+            <label>Select Year</label>
+            <select class="form-control" v-model="searchData.year" @change="filterData">
+              <option value>Get All</option>
               <option v-for="year in startYear" :key="year" :value="year+2000">{{2000 +year}}</option>
             </select>
           </div>
         </div>
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
-            <select class="form-control" @change="getCourse($event)">
-              <option value>-- Select Department --</option>
+            <label>Select Department</label>
+            <select
+              class="form-control"
+              @change="getCourse($event)"
+              v-model="searchData.department"
+            >
+              <option value>Get All</option>
               <option
                 v-for="(department,index) in departments"
                 :key="index"
@@ -24,8 +30,8 @@
         </div>
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
-            <select class="form-control">
-              <option value>-- Select Semester --</option>
+            <label>Select Semester</label>
+            <select class="form-control" v-model="searchData.semester" @change="filterData">
               <option value="1">First Semester</option>
               <option value="2">Secnd Semester</option>
             </select>
@@ -33,8 +39,8 @@
         </div>
         <div class="col-md-2 col-lg-2 col-sm-2">
           <div class="form-group">
-            <select class="form-control">
-              <option value>-- Select Course --</option>
+            <label>Select Course</label>
+            <select class="form-control" v-model="searchData.course" @change="filterData">
               <option
                 v-for="(course, index) in courses"
                 :key="index"
@@ -52,7 +58,7 @@
 // @ is an alias to /src
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
-import { FETCH_COURSES } from "../store/actions.names";
+import { FETCH_COURSES, FETCH_QUESTIONS } from "../store/actions.names";
 
 @Component({
   name: "SearchBox",
@@ -60,10 +66,17 @@ import { FETCH_COURSES } from "../store/actions.names";
 })
 export default class SearchBox extends Vue {
   @Action(FETCH_COURSES) fetchCourses: any;
+  @Action(FETCH_QUESTIONS) fetchQuestions: any;
   @Prop() readonly departments: any;
 
   startYear: number = 20;
   courses: any = [];
+  searchData: any = {
+    year: "",
+    department: "",
+    semester: "",
+    course: ""
+  };
 
   getCourse(event: any) {
     let courseId: number = event.target.value;
@@ -80,6 +93,22 @@ export default class SearchBox extends Vue {
     } else {
       this.courses = [];
     }
+
+    this.filterData();
+  }
+
+  filterData() {
+    this.fetchQuestions(this.searchData)
+      .then((result: any) => {
+        this.$emit("inputData", result);
+      })
+      .catch((e: any) => {
+        this.$emit("inputData", []);
+      });
+  }
+
+  mounted() {
+    // this.$emit("inputData", "Hello Hasan");
   }
 }
 </script>

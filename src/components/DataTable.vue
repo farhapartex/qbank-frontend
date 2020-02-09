@@ -3,6 +3,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+          <th scope="col">Year</th>
           <th scope="col">Department</th>
           <th scope="col">Year/Semester</th>
           <th scope="col">Course Code</th>
@@ -11,25 +12,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>MAT</td>
-          <td>2/1</td>
-          <td>MAT-213</td>
-          <td>Latice Theory</td>
-          <td>
-            <a href="#">
-              <span>View</span>
-              <span class="ml-2">
-                <i class="fas fa-eye"></i>
-              </span>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>MAT</td>
-          <td>2/1</td>
-          <td>MAT-213</td>
-          <td>Latice Theory</td>
+        <tr v-for="(question, index) in questions" :key="index">
+          <td>{{question.year}}</td>
+          <td>{{question.department.name}}</td>
+          <td v-if="question.semester==1">First Semester</td>
+          <td v-else>Second Semester</td>
+          <td>{{question.course.code}}</td>
+          <td>{{question.course.name}}</td>
           <td>
             <a href="#">
               <span>View</span>
@@ -53,7 +42,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
   components: {}
 })
 export default class DataTable extends Vue {
-  // dummy
+  @Prop() readonly questions: any;
 }
 </script>
 
