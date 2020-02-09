@@ -3,6 +3,7 @@
     <div class="w-100">
       <div class="auth-box mx-auto p-3 mt-5">
         <div class="auth-header mt-3 mb-3">
+          <h5 class="text-center mb-3">Question Bank</h5>
           <h5 class="text-center">
             <span class="mr-2 login-text" @click="getLoginForm()">Login</span>
             <span class="mr-2">|</span>
