@@ -1,6 +1,11 @@
 <template>
   <div class="dataTable mx-auto w-90 mt-5">
-    <table class="table table-bordered">
+    <div
+      class="alert alert-secondary text-center"
+      v-if="questions.length==0"
+      role="alert"
+    >Data Not Found</div>
+    <table class="table table-bordered" v-else>
       <thead>
         <tr>
           <th scope="col">Year</th>
