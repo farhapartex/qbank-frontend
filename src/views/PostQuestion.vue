@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control">
+                <select class="form-control" v-model="questionData.year">
                   <option value>-- Select Year --</option>
                   <option v-for="year in startYear" :key="year" :value="year">{{2000 +year}}</option>
                 </select>
@@ -17,7 +17,11 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control" @change="getCourse($event)">
+                <select
+                  class="form-control"
+                  @change="getCourse($event)"
+                  v-model="questionData.department"
+                >
                   <option value>-- Select Department --</option>
                   <option
                     v-for="(department,index) in departments"
@@ -31,8 +35,8 @@
           <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control">
-                  <option value>-- Select Semester --</option>
+                <select class="form-control" v-model="questionData.semester">
+                  <option>-- Select Semester --</option>
                   <option value="1">First Semester</option>
                   <option value="2">Secnd Semester</option>
                 </select>
@@ -40,7 +44,11 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <select class="form-control" v-if="courses.length > 0">
+                <select
+                  class="form-control"
+                  v-if="courses.length > 0"
+                  v-model="questionData.course"
+                >
                   <option value>-- Select Course --</option>
                   <option
                     v-for="(course, index) in courses"
@@ -58,12 +66,22 @@
           <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Type Course Title" />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Type Course Title"
+                  v-model="questionData.title"
+                />
               </div>
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6">
               <div class="form-group">
-                <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="exampleFormControlFile1"
+                  ref="questionImage"
+                />
               </div>
             </div>
           </div>
@@ -99,17 +117,59 @@ export default class PostQuestion extends Vue {
   startYear: number = 20;
   courses: any = [];
 
+  questionData: any = {
+    year: null,
+    department: null,
+    semester: null,
+    course: null,
+    title: ""
+  };
+
   getCourse(event: any) {
     let courseId: number = event.target.value;
-    this.fetchCourses({
-      id: courseId
-    })
-      .then((result: any) => {
-        this.courses = result;
+    if (courseId) {
+      this.fetchCourses({
+        id: courseId
       })
-      .catch((e: any) => {
-        this.courses = [];
+        .then((result: any) => {
+          this.courses = result;
+        })
+        .catch((e: any) => {
+          this.courses = [];
+        });
+    } else {
+      this.courses = [];
+    }
+  }
+
+  validation(formData: any) {
+    if (
+      formData.title == "" ||
+      formData.year == null ||
+      formData.department == null ||
+      formData.semester == "" ||
+      formData.course == null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  submitQuesiton() {
+    if (this.validation(this.questionData)) {
+      let formData = new FormData();
+
+      Object.keys(this.questionData).map(key => {
+        formData.append(key, this.questionData[key]);
       });
+
+      let cover = (this.$refs["questionImage"] as HTMLInputElement).files[0];
+      if (typeof cover != "undefined") {
+        formData.append("cover", cover);
+      } else {
+        formData.append("cover", "");
+      }
+    }
   }
 }
 </script>
