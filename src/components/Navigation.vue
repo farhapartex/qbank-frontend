@@ -16,11 +16,14 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'home'}">Home</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'addQuestion'}">Add Question</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'profile'}">Profile</router-link>
           </li>
           <li class="nav-item" v-if="accessToken">
             <router-link class="nav-link" :to="{ name: 'logout'}">Logout</router-link>

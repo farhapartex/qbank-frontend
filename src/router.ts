@@ -15,6 +15,15 @@ const routes = [
         }
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () => import("./views/Profile.vue"),
+        meta: {
+            authRequired: true,
+            access_level: 0
+        }
+    },
+    {
         path: '/auth',
         name: 'auth',
         component: () => import("./views/Auth.vue"),
