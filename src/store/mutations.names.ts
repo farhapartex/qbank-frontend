@@ -6,3 +6,5 @@ export const SET_USER: string = "setUser";
 export const SET_USER_ERROR: string = "setUserError";
 export const SET_DEPARTMENTS: string = "setDepartments";
 export const SET_DEPARTMENTS_ERROR: string = "setDepartmentsError";
+export const SET_PROFILE: string = "setProfile";
+export const SET_PROFILE_ERROR: string = "setProfileError";

@@ -6,3 +6,4 @@ export const FETCH_DEPARTMENTS: string = "fetchDepartments";
 export const FETCH_COURSES: string = "fetchCourses";
 export const CREATE_QUESTION: string = "createQuestion";
 export const FETCH_QUESTIONS: string = "fetchQuestions";
+export const FETCH_PROFILE: string = "fetchProfile";

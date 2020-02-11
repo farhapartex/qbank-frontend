@@ -6,9 +6,9 @@ import {
     ACCESS_TOKEN,
     USER_PROFILE,
 } from "../getters.names";
-import { AUTHENTICATION_ENDPOINT, LOGOUT_ENDPOINT, USER_ENDPOINT } from '../endpoints.names';
-import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE } from '../mutations.names';
-import { LOGIN, LOGOUT, AUTHENTICATE_SINGLE_USER, RETRIEVE_AUTH_FROM_STORE } from '../actions.names';
+import { AUTHENTICATION_ENDPOINT, LOGOUT_ENDPOINT, USER_ENDPOINT, PROFILE_ENDPOINT } from '../endpoints.names';
+import { SET_AUTH, SET_AUTH_ERROR, CLEAR_AUTH, GET_AUTH_FROM_STORE, SET_PROFILE, SET_PROFILE_ERROR } from '../mutations.names';
+import { LOGIN, LOGOUT, AUTHENTICATE_SINGLE_USER, RETRIEVE_AUTH_FROM_STORE, FETCH_PROFILE } from '../actions.names';
 import { generateAuthHeader } from '@/utils/auth';
 
 const DEFAULT_AUTH_STATE: AuthState = {
@@ -69,6 +69,16 @@ const actions: ActionTree<AuthState, RootState> = {
                 });
         });
     },
+    async [FETCH_PROFILE]({ commit, rootState }): Promise<any> {
+        axios
+            .get(PROFILE_ENDPOINT, generateAuthHeader(rootState.AuthModule.token))
+            .then(({ data }) => {
+                commit(SET_PROFILE, data);
+            })
+            .catch(e => {
+                commit(SET_PROFILE_ERROR);
+            });
+    },
     [RETRIEVE_AUTH_FROM_STORE]({ state, commit, dispatch }) {
         commit(GET_AUTH_FROM_STORE);
     },
@@ -99,6 +109,15 @@ const mutations: MutationTree<AuthState> = {
             state.token = token;
             state.error = false;
         }
+    },
+    [SET_PROFILE](state, payload: User) {
+        state.user = payload;
+        state.error = false;
+    },
+    [SET_PROFILE_ERROR](state) {
+        state.error = true;
+        state.token = null;
+        window.localStorage.removeItem("authToken");
     },
 };
 

@@ -6,3 +6,4 @@ export const LOGOUT_ENDPOINT: string = `${API_URL}/rest-auth/logout/`;
 export const USER_ENDPOINT: string = `${API_URL}/user/`;
 export const COURSE_ENDPOINT: string = `${API_URL}/route/courses/`;
 export const QUESTION_ENDPOINT: string = `${API_URL}/route/questions/`;
+export const PROFILE_ENDPOINT: string = `${API_URL}/route/users/me/`;

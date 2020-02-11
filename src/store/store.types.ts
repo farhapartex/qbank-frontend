@@ -8,6 +8,12 @@ export interface Params {
     [key: number]: any;
 }
 
+export interface Profile {
+    id: number;
+    department: any;
+    session: string;
+}
+
 export interface User {
     id: number;
     username: string;
@@ -15,6 +21,10 @@ export interface User {
     last_name: string;
     email: string;
     full_name: string;
+    image: string;
+    last_login: string;
+    groups: any;
+    uprofile: Profile;
 }
 
 export interface AuthState {
