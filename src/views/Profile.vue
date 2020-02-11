@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-5 col-lg-5 col-xl-5 col-sm-12">
             <div class="profile-image w-100">
-              <img v-if="profile.image" :src="profile.image" class="mx-auto" alt />
+              <img v-if="profile && profile.image" :src="profile.image" class="mx-auto" alt />
               <img v-else src="../assets/images/default-prof.png" class="mx-auto" alt />
             </div>
           </div>

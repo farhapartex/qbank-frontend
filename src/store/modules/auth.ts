@@ -36,7 +36,7 @@ const actions: ActionTree<AuthState, RootState> = {
             .then(({ data }) => {
                 const token = data.key;
                 commit(SET_AUTH, token);
-                // dispatch(GET_PROFILE);
+                dispatch(FETCH_PROFILE);
             })
             .catch(e => {
                 commit(SET_AUTH_ERROR);

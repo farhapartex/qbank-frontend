@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
-import { DEPARTMENTS } from "./store/getters.names";
+import { DEPARTMENTS, USER_PROFILE } from "./store/getters.names";
 import { FETCH_DEPARTMENTS, FETCH_PROFILE } from "./store/actions.names";
 @Component({
   name: "app",
@@ -15,12 +15,11 @@ import { FETCH_DEPARTMENTS, FETCH_PROFILE } from "./store/actions.names";
 })
 export default class App extends Vue {
   @Getter(DEPARTMENTS) departments: any;
+  @Getter(USER_PROFILE) profile: any;
   @Action(FETCH_PROFILE) fetchProfile: any;
   @Action(FETCH_DEPARTMENTS) fetchDepartments: any;
   mounted() {
     this.fetchDepartments();
-    this.fetchProfile();
-    // console.log(this.categories);
   }
 }
 </script>
