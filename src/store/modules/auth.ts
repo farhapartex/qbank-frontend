@@ -115,9 +115,8 @@ const mutations: MutationTree<AuthState> = {
         state.error = false;
     },
     [SET_PROFILE_ERROR](state) {
+        state.user = null;
         state.error = true;
-        state.token = null;
-        window.localStorage.removeItem("authToken");
     },
 };
 

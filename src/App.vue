@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { Getter, Action } from "vuex-class";
-import { DEPARTMENTS, PROFILE } from "./store/getters.names";
+import { DEPARTMENTS } from "./store/getters.names";
 import { FETCH_DEPARTMENTS, FETCH_PROFILE } from "./store/actions.names";
 @Component({
   name: "app",
