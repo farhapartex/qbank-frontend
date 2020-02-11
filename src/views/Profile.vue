@@ -17,7 +17,7 @@
                 <span class="mr-5">Session: {{profile.uprofile.session}}</span>
               </h5>
               <h5>
-                <span>Register No: {{profile.username}}</span>
+                <span>Register No: {{profile.uprofile.registration_number}}</span>
               </h5>
               <h5>
                 <span class="mr-5">Department: {{profile.uprofile.department.name}}</span>
